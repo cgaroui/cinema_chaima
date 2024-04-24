@@ -4,7 +4,7 @@ ob_start();
 
 ?>
 
-<p >il y a <?= $requete->rowCount() ?> films</p>
+<p >il y a <?= $requete->rowCount() ?> films</p>       <!--  la fonction rowCount() calcule le nmbre de ligne (ici car on affiche 1 film par ligne ) -->
 
 <table>
     <thead>
@@ -15,6 +15,7 @@ ob_start();
     </thead>
     <tbody>
         <?php
+        //affichage plusieur lignges (avec fetchAll) en indiquant pour chaque ligne le titre et l'année de sortie du film concerné 
             foreach($requete->fetchAll() as $film){ ?>
                 <tr>
                     <td><?=$film["titre"]?></td>
