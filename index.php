@@ -3,6 +3,7 @@
 use controller\ActeurController;
 use controller\FilmController;
 use controller\GenreController;
+use controller\RoleController;
 
 spl_autoload_register(function ($class_name){
     include $class_name . '.php';
@@ -11,6 +12,7 @@ spl_autoload_register(function ($class_name){
 $ctrlFilm = new FilmController();
 $ctrlActeur = new ActeurController();
 $ctrlGenre = new GenreController();
+$ctrlRole = new RoleController();
 
 
 $id = (isset($_GET["id"])) ?$_GET["id"] : null;
@@ -23,6 +25,7 @@ if(isset($_GET["action"])) {
         case "detailFilm" :  $ctrlFilm->detailFilm($id);break;
         case "listGenres" : $ctrlGenre->listGenres();break;
         case "detailGenre" : $ctrlGenre->detailGenre($id);break;
+        case "castingFilm" : $ctrlRole->castingFilm($id);break;
     }
 }
 
