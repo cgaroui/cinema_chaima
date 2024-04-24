@@ -27,3 +27,9 @@ ob_start();
                 <?php }?>
     </tbody>
 </table>
+
+<?php
+$titre = "Liste des acteurs ";
+$titre_secondaire = "Liste des ";
+$contenu = ob_get_clean();
+require "view/template.php";
