@@ -16,7 +16,6 @@ ob_start();
     <tbody>
         <?php
             foreach($requete_acteurs->fetchAll() as $acteur){ ?>
-            <h3></h3>
                 <tr>
                     <td><?=$acteur["nom"]?></td>
                     <td><?=$acteur["prenom"]?></td>
