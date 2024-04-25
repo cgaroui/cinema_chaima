@@ -5,9 +5,10 @@ $films = $requete_acteurFilms->fetchAll();
  ?>
 
 <p>
-    <?= "Acteur : ".$Acteur["Acteur"]."<br>"?>
-    <?= "Date de naissance : ".$Acteur["date_naissance"]."<br>"?>
-    <?= "Age : ".$Acteur["age"]." ans"?>
+    <?php echo "Acteur : ".$Acteur["Acteur"]."<br>".
+     "Date de naissance : ".$Acteur["date_naissance"]."<br>".
+     "Sexe : ".$Acteur["sexe"]."<br>".
+     "Age : ".$Acteur["age"]." ans"?>
 
 </p>
 
