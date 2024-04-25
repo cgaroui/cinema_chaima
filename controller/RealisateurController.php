@@ -5,10 +5,17 @@ use Model\Connect;
 
 class RealisateurController{
 
+    public function listRealisateurs(){
+        $pdo = Connect::seConnecter();
+        $requete_listRealisateurs = $pdo->query("SELECT nom, prenom, sexe , date_naissance FROM realisateur inner join personne on realisateur.id_personne = personne.id_personne ;");
+
+        require "view/listRealisateurs.php";
+    }
+
 
     public function detailRealisateur($id){
         $pdo = Connect::seConnecter();
-        
+
         $requete_realisateur= $pdo->prepare("SELECT 
             CONCAT(personne.nom, ' ', personne.prenom) AS Realisateur, 
             personne.sexe,

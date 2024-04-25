@@ -10,11 +10,11 @@
 <body>
     <nav>
         <ul>
+            <li><a href="index.php">Accueil</a></li>
             <li><a href="index.php?action=listFilms ">Films</a></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li><a href="index.php?action=listGenres">Genres</a></li>
+            <li><a href="index.php?action=listActeurs">Acteurs</a></li>
+            <li><a href="index.php?action=listRealisateurs">Realisateur</a></li>
         </ul>
     </nav>
         <div id="wrapper" class="uk-container uk-container-expand">

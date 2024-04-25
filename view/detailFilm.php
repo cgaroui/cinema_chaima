@@ -18,7 +18,6 @@ $detail_film = $requete_detFilm->fetch();
 <table>
     <thead>
         <tr>
-            <th>Titre du film </th>
             <th>Acteur </th>
             <th>Role </th>
             
@@ -28,11 +27,8 @@ $detail_film = $requete_detFilm->fetch();
         <?php
             foreach($castings as $casting){ ?>
                 <tr>
-                    <td><?=$casting["Titre du film"]?></td>
                     <td><?=$casting["Acteur"]?></td>
                     <td><?=$casting["role dans le film"]?></td>
-    
-                    
                 </tr>
                 <?php }?>
     </tbody>

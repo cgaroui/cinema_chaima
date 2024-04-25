@@ -1,7 +1,7 @@
 <?php 
 
 ob_start(); 
-
+$realisateurs =$requete_listRealisateurs->fetchAll() ;
 ?>
 
 <table>
@@ -15,9 +15,9 @@ ob_start();
     </thead>
     <tbody>
         <?php
-            foreach($requete_acteurs->fetchAll() as $acteur){ ?>
+            foreach($realisateurs as $acteur){ ?>
                 <tr>
-                    <td><?=$acteur["nom"]?></td>
+                    <td><a href="index.php?detailRealisateur&id=<?= $acteur["nom"]?>"><?=$acteur["nom"]?></a></td>
                     <td><?=$acteur["prenom"]?></td>
                     <td><?=$acteur["sexe"]?></td>
                     <td><?=$acteur["date_naissance"]?></td>
@@ -28,7 +28,7 @@ ob_start();
 </table>
 
 <?php
-$titre = "Liste des acteurs ";
-$titre_secondaire = "Liste des Acteurs";
+$titre = "Liste des Realisateurs ";
+$titre_secondaire = "Liste des Realisateurs";
 $contenu = ob_get_clean();
 require "view/template.php";
