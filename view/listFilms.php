@@ -15,10 +15,10 @@ ob_start();
     </thead>
     <tbody>
         <?php
-        //affichage plusieur lignges (avec fetchAll) en indiquant pour chaque ligne le titre et l'année de sortie du film concerné 
+        //affichage plusieur lignes (avec fetchAll) en indiquant pour chaque ligne le titre et l'année de sortie du film concerné 
             foreach($requete->fetchAll() as $film){ ?>
                 <tr>
-                    <td><?=$film["titre"]?></td>
+                    <td><a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>"><?=$film["titre"]?></a></td>
                     <td><?=$film["annee_sortie"]?></td>
                 </tr>
                 <?php }?>

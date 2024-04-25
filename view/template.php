@@ -9,6 +9,14 @@
 </head>
 <body>
     <nav>
+        <ul>
+            <li><a href="index.php?action=listFilms ">Films</a></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </nav>
         <div id="wrapper" class="uk-container uk-container-expand">
             <main>
                 <div id="contenu">
@@ -20,7 +28,7 @@
             </main>
 
         </div>
-    </nav>
+    
    
 </body>
 </html>

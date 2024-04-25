@@ -1,27 +1,37 @@
 <?php
 ob_start();
+$castings= $requete_castingFilm->fetchAll();
+$detail_film = $requete_detFilm->fetch();
 ?>
+
+
+
+<p>
+    <?php echo "Titre du film : ".$detail_film["titre"]."<br>".
+     "Année de sortie : ".$detail_film["annee_sortie"]."<br>".
+     "duree : ".$detail_film["duree"]."<br>".
+     "note : ".$detail_film["note"]."<br>".
+     "realisateur : ".$detail_film["realisateur"]?>
+
+</p>
 
 <table>
     <thead>
         <tr>
             <th>Titre du film </th>
-            <th>Année de sortie </th>
-            <th>durée </th>
-            <th>Note</th>
-            <th>realisateur</th>
+            <th>Acteur </th>
+            <th>Role </th>
+            
         </tr>
     </thead>
     <tbody>
         <?php
-            foreach($requete_detFilm->fetchAll() as $detFilm){ ?>
-            <h3></h3>
+            foreach($castings as $casting){ ?>
                 <tr>
-                    <td><?=$detFilm["titre"]?></td>
-                    <td><?=$detFilm["annee_sortie"]?></td>
-                    <td><?=$detFilm["duree"]?></td>
-                    <td><?=$detFilm["note"]?></td>
-                    <td><?=$detFilm["realisateur"]?></td>
+                    <td><?=$casting["Titre du film"]?></td>
+                    <td><?=$casting["Acteur"]?></td>
+                    <td><?=$casting["role dans le film"]?></td>
+    
                     
                 </tr>
                 <?php }?>
@@ -32,6 +42,6 @@ ob_start();
 
 <?php
 $titre = "Detail d'un film ";
-$titre_secondaire = "Detail d'un film ";
+$titre_secondaire = "Detail du film ".$casting["Titre du film"];
 $contenu = ob_get_clean();
 require "view/template.php";
