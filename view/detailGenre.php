@@ -22,8 +22,7 @@ ob_start();
         <?php
            
             foreach($requete_detGenre->fetchAll() as $film){ ?>
-            <h3></h3>
-
+          
                 <tr>
                     
                     <td><?=$film["titre"]?></td>

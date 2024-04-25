@@ -1,7 +1,7 @@
 <?php
 
-namespace controller ;
-use model\Connect;
+namespace Controller ;
+use Model\Connect;
 
 class GenreController{
 

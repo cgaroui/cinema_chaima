@@ -1,10 +1,10 @@
 <?php
 
-namespace controller ;
-use model\Connect;
+namespace Controller ;
+use Model\Connect;
 
 class ActeurController{
-    //liste des films 
+    
     
     public function listActeurs(){
         $pdo = Connect::seConnecter();

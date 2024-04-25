@@ -30,6 +30,6 @@ ob_start();
 
 <?php
 $titre = "Casting d'un film ";
-$titre_secondaire = "Casting d'un film ";
+$titre_secondaire = "Casting du film ".$personnage["Titre du film"];
 $contenu = ob_get_clean();
 require "view/template.php";
