@@ -7,7 +7,7 @@ class RoleController{
     
     public function castingFilm($id) {
         $pdo = Connect::seConnecter();
-        $requete_castingFilm = $pdo->prepare("SELECT film.titre AS 'Titre du film', 
+        $requete_castingFilm = $pdo->prepare("SELECT id_acteur,film.titre AS 'Titre du film', 
             concat(personne.nom,' ', personne.prenom) AS Acteur,
             role.nom_personnage AS 'role dans le film'
             FROM casting 

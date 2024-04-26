@@ -28,13 +28,14 @@ class ActeurController{
         $requete_detailActeur->execute(["id"=>$id]);
 
         $requete_acteurFilms = $pdo->prepare("SELECT DISTINCT
+            film.id_film,
             film.titre ,
             film.annee_sortie,
             role.nom_personnage AS Role
             FROM film
             INNER JOIN casting ON film.id_film = film.id_film
             INNER JOIN role ON casting.id_role = role.id_role
-            WHERE  id_acteur= :id");
+            WHERE  casting.id_acteur = :id");
 
         $requete_acteurFilms->execute(["id"=>$id]);
 
