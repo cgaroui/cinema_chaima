@@ -14,8 +14,9 @@ $genres = $requete_genres->fetchAll();
     <tbody>
         <?php
         foreach($genres as $genre){?>
+
             <tr>
-                <td><a href="index.php?action=detailGenre&id=<?$genre["nom_genre"]?><?=$genre["nom_genre"]?></a></td>
+                <td><a href="index.php?action=detailGenre&id=<?= $genre["id_genre"] ?>"><?= $genre["nom_genre"] ?></a></td>
                 <td><?=$genre["nombre de films"]?></td>
             </tr>
             <?php }?>
@@ -27,3 +28,5 @@ $titre = "Liste des Genres ";
 $titre_secondaire = "Liste des Genres ";
 $contenu = ob_get_clean();
 require "view/template.php";
+
+
