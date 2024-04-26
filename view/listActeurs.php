@@ -1,7 +1,7 @@
 <?php 
 
 ob_start(); 
-
+$acteurs = $requete_acteurs->fetchAll();
 ?>
 
 <table>
@@ -15,10 +15,11 @@ ob_start();
     </thead>
     <tbody>
         <?php
-            foreach($requete_acteurs->fetchAll() as $acteur){ ?>
+            foreach($acteurs as $acteur){ ?>
                 <tr>
-                    <td><?=$acteur["nom"]?></td>
-                    <td><?=$acteur["prenom"]?></td>
+
+                    <td><a href="index.php?detailActeur&id=<?= $acteur["nom"]?>"><?=$acteur["nom"]?></a></td>
+                    <td><a href="index.php?detailActeur&id=<?= $acteur["nom"]?>"><?=$acteur["prenom"]?></td>
                     <td><?=$acteur["sexe"]?></td>
                     <td><?=$acteur["date_naissance"]?></td>
                     

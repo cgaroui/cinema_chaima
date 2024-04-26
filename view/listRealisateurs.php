@@ -18,7 +18,7 @@ $realisateurs =$requete_listRealisateurs->fetchAll() ;
             foreach($realisateurs as $acteur){ ?>
                 <tr>
                     <td><a href="index.php?detailRealisateur&id=<?= $acteur["nom"]?>"><?=$acteur["nom"]?></a></td>
-                    <td><?=$acteur["prenom"]?></td>
+                    <td><a href="index.php?detailRealisateur&id=<?= $acteur["nom"]?>"><?=$acteur["prenom"]?></td>
                     <td><?=$acteur["sexe"]?></td>
                     <td><?=$acteur["date_naissance"]?></td>
                     

@@ -8,7 +8,7 @@ class ActeurController{
     
     public function listActeurs(){
         $pdo = Connect::seConnecter();
-        $requete_acteurs = $pdo->query("SELECT nom, prenom, sexe , date_naissance FROM acteur inner join personne on acteur.id_personne = personne.id_personne ;");
+        $requete_acteurs = $pdo->query("SELECT id_acteur,nom, prenom, sexe , date_naissance FROM acteur inner join personne on acteur.id_personne = personne.id_personne ;");
 
         require "view/listActeurs.php";
     }
@@ -16,7 +16,7 @@ class ActeurController{
 
     public function detailActeur($id){
         $pdo = Connect::seConnecter();
-        $requete_detailActeur =$pdo->prepare("SELECT 
+        $requete_detailActeur =$pdo->prepare("SELECT acteur.id_acteur,
             CONCAT(personne.nom, ' ', personne.prenom) AS Acteur, 
             personne.sexe,
             personne.date_naissance,
