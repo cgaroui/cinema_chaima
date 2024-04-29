@@ -56,6 +56,5 @@ class GenreController{
         
         require "view/ajouts/ajoutGenre.php";
         }
-
     }
 }

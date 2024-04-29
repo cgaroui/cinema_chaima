@@ -1,20 +1,20 @@
 <?php
 //index utilise le classes (ex: FilmController... ) qui sont presentes dans le dossier Controller 
-use Controller\ActeurController;
 use Controller\FilmController;
 use Controller\GenreController;
 use Controller\RoleController;
 use Controller\RealisateurController;
+use Controller\PersonneController;
 
 spl_autoload_register(function ($class_name){
     include $class_name . '.php';
 });
 
 $ctrlFilm = new FilmController();
-$ctrlActeur = new ActeurController();
+$ctrlPersonne = new PersonneController();
 $ctrlGenre = new GenreController();
 $ctrlRole = new RoleController();
-$ctrlRealisateur = new RealisateurController();
+
 
 $id = (isset($_GET["id"])) ?$_GET["id"] : null;
 
@@ -22,14 +22,15 @@ if(isset($_GET["action"])) {
     switch ($_GET["action"]){
 
         case "listFilms" : $ctrlFilm->listFilms();break;
-        case "listActeurs" : $ctrlActeur->listActeurs();break; 
+        case "listActeurs" : $ctrlPersonne->listActeurs();break; 
         case "detailFilm" :  $ctrlFilm->detailFilm($id);break;
         case "listGenres" : $ctrlGenre->listGenres();break;
         case "detailGenre" : $ctrlGenre->detailGenre($id);break;
-        case "detailRealisateur" : $ctrlRealisateur->detailRealisateur($id);break; 
-        case "detailActeur" : $ctrlActeur->detailActeur($id);break;
-        case "listRealisateurs" : $ctrlRealisateur->listRealisateurs();break;
+        case "detailRealisateur" : $ctrlPersonne->detailRealisateur($id);break; 
+        case "detailActeur" : $ctrlPersonne->detailActeur($id);break;
+        case "listRealisateurs" : $ctrlPersonne->listRealisateurs();break;
         case "ajoutGenre" : $ctrlGenre->ajoutGenre($id);break;
+        case "ajoutPersonne" :$ctrlPersonne->ajoutPersonne();break;
     }
 } else {
     $ctrlFilm->listFilms();
