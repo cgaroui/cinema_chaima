@@ -44,3 +44,6 @@ $titre = "Detail d'un film ";
 $titre_secondaire = "Detail du film ".$detail_film["titre"];
 $contenu = ob_get_clean();
 require "view/template.php";
+
+
+

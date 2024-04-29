@@ -19,7 +19,7 @@ class RealisateurController{
         $requete_realisateur= $pdo->prepare("SELECT 
             CONCAT(personne.nom, ' ', personne.prenom) AS Realisateur, 
             personne.sexe,
-            personne.date_naissance,
+            DATE_FORMAT(personne.date_naissance, '%d-%m-%Y') AS date_naissance,
             TIMESTAMPDIFF(YEAR, personne.date_naissance, CURDATE()) AS Age    
             FROM 
                 realisateur 
