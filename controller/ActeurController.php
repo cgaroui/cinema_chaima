@@ -8,7 +8,14 @@ class ActeurController{
     
     public function listActeurs(){
         $pdo = Connect::seConnecter();
-        $requete_acteurs = $pdo->query("SELECT id_acteur,nom, prenom, sexe , date_naissance FROM acteur inner join personne on acteur.id_personne = personne.id_personne ;");
+        $requete_acteurs = $pdo->query("SELECT 
+            acteur.id_acteur,
+            personne.nom, 
+            personne.prenom, 
+            personne.sexe,
+            DATE_FORMAT(personne.date_naissance, '%d-%m-%Y') AS date_naissance
+            FROM acteur
+            INNER JOIN personne ON acteur.id_personne = personne.id_personne ");
 
         require "view/listActeurs.php";
     }
@@ -19,7 +26,7 @@ class ActeurController{
         $requete_detailActeur =$pdo->prepare("SELECT acteur.id_acteur,
             CONCAT(personne.nom, ' ', personne.prenom) AS Acteur, 
             personne.sexe,
-            personne.date_naissance,
+            DATE_FORMAT(personne.date_naissance, '%d-%m-%Y') AS date_naissance,
             TIMESTAMPDIFF(YEAR, personne.date_naissance, CURDATE())  AS age 
             FROM acteur
             INNER JOIN personne ON personne.id_personne = acteur.id_personne
