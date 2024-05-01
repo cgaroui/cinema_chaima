@@ -1,60 +1,87 @@
 <?php
-
-namespace Controller ;
+// Déclaration du namespace et des importations nécessaires
+namespace Controller;
 use Model\Connect;
 
-class GenreController{
+// Classe principale pour gérer les genres de films
+class GenreController {
 
-    public function listGenres(){
+    // Méthode pour lister tous les genres de films
+    public function listGenres() {
+        // Connexion à la base de données
         $pdo = Connect::seConnecter();
-        $requete_genres = $pdo->query(
-        "SELECT id_genre, nom_genre, COUNT(id_genre) AS 'nombre de films'
-        FROM genre
-        GROUP BY id_genre");
 
+        // Requête SQL pour récupérer la liste des genres avec le nombre de films associés
+        $requete_genres = $pdo->query("SELECT 
+            id_genre,  // ID du genre
+            nom_genre,  // Nom du genre
+            COUNT(id_genre) AS 'nombre de films'  // Nombre total de films associés à ce genre
+            FROM genre
+            GROUP BY id_genre");  // Groupement par ID du genre
+
+        // Chargement de la vue pour afficher la liste des genres
         require "view/listGenres.php";
-            
     }
 
+    // Méthode pour afficher le détail d'un genre spécifique
     public function detailGenre($id) {
-        $pdo = connect::seConnecter();
-        $requete_nom = $pdo -> prepare("SELECT nom_genre 
-        FROM genre
-        WHERE genre.id_genre = :id");
-        $requete_nom -> execute(["id"=>$id]);
+        // Connexion à la base de données
+        $pdo = Connect::seConnecter();
 
-        $requete_detGenre = $pdo->prepare("SELECT genre.id_genre, film.id_film, genre.nom_genre,
-            titre, annee_sortie, 
-            CONCAT(FLOOR(duree / 60), 'h ', duree % 60, 'min') AS duree ,
-            note 
-            FROM film 
-            INNER JOIN posseder ON posseder.id_film = film.id_film
-            INNER JOIN genre ON genre.id_genre = posseder.id_genre
+        // Requête pour obtenir le nom du genre par son ID
+        $requete_nom = $pdo->prepare("SELECT nom_genre 
+            FROM genre
             WHERE genre.id_genre = :id");
-        $requete_detGenre->execute(["id"=>$id]);
+        // Exécution de la requête avec l'ID du genre
+        $requete_nom->execute(["id" => $id]);
+
+        // Requête pour récupérer les détails des films associés à ce genre
+        $requete_detGenre = $pdo->prepare("SELECT 
+            genre.id_genre,  // ID du genre
+            film.id_film,  // ID du film
+            genre.nom_genre,  // Nom du genre
+            titre,  // Titre du film
+            annee_sortie,  // Année de sortie du film
+            CONCAT(FLOOR(duree / 60), 'h ', duree % 60, 'min') AS duree,  // Durée formatée (heures et minutes)
+            note  // Note du film
+            FROM film 
+            INNER JOIN posseder ON posseder.id_film = film.id_film  // Jointure pour associer film et genre
+            INNER JOIN genre ON genre.id_genre = posseder.id_genre  // Jointure avec le genre
+            WHERE genre.id_genre = :id");
+        
+        // Exécution de la requête avec l'ID du genre
+        $requete_detGenre->execute(["id" => $id]);
+
+        // Chargement de la vue pour afficher les détails du genre
         require "view/detailGenre.php";
     }
 
-    public function ajoutGenre(){
-    
-        if(isset($_POST['submit']) ){
-           
+    // Méthode pour ajouter un nouveau genre de film
+    public function ajoutGenre() {
+        // Vérification si le formulaire a été soumis
+        if (isset($_POST['submit'])) {
+            // Récupération et nettoyage du nom du genre à partir du formulaire
             $nomGenre = filter_input(INPUT_POST, "nom_genre", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Si un nom de genre a été soumis
             if ($nomGenre) {
+                // Connexion à la base de données
                 $pdo = Connect::seConnecter();
-                var_dump($nomGenre);
-    
+                
+                // Préparation de la requête pour insérer le nouveau genre
                 $requete_ajoutGenre = $pdo->prepare("INSERT INTO genre (nom_genre) VALUES (:nom_genre)");
+                
+                // Exécution de la requête avec le nom du genre
                 $requete_ajoutGenre->execute(['nom_genre' => $nomGenre]);
-                     
-    
+
+                // Vous pourriez inclure un message de confirmation ici
             }
-        require "view/ajouts/ajoutGenre.php";
-        
-    
-    } else {
-        
-        require "view/ajouts/ajoutGenre.php";
+
+            // Chargement de la vue pour ajouter un genre
+            require "view/ajouts/ajoutGenre.php";
+        } else {
+            // Si le formulaire n'a pas été soumis, simplement charger la vue
+            require "view/ajouts/ajoutGenre.php";
         }
     }
 }
