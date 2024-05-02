@@ -97,6 +97,25 @@ class FilmController {
         // Afficher le formulaire d'ajout
         require "view/ajouts/ajoutFilm.php";
     }
+
+    public function supprimerFilm($id) {
+        $pdo = Connect::seConnecter();
+
+        try {
+            // Préparer la requête SQL pour supprimer un film
+            $requete_supprimerFilm = $pdo->prepare("DELETE FROM film WHERE id_film = :id");
+
+            // Exécuter la requête avec l'ID du film à supprimer
+            $requete_supprimerFilm->execute(['id' => $id]);
+
+            echo "Le film a été supprimé avec succès.";
+        } catch (Exception $e) {
+            // Gérer les exceptions ou erreurs lors de la suppression
+            echo "Erreur lors de la suppression du film : " . $e->getMessage();
+        }
+    }
+}
+
     
 }
 
