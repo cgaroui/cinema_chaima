@@ -13,9 +13,9 @@ class GenreController {
 
         // Requête SQL pour récupérer la liste des genres avec le nombre de films associés
         $requete_genres = $pdo->query("SELECT 
-            id_genre,  // ID du genre
-            nom_genre,  // Nom du genre
-            COUNT(id_genre) AS 'nombre de films'  // Nombre total de films associés à ce genre
+            id_genre,  
+            nom_genre,  
+            COUNT(id_genre) AS 'nombre de films'  
             FROM genre
             GROUP BY id_genre");  // Groupement par ID du genre
 
@@ -37,16 +37,16 @@ class GenreController {
 
         // Requête pour récupérer les détails des films associés à ce genre
         $requete_detGenre = $pdo->prepare("SELECT 
-            genre.id_genre,  // ID du genre
-            film.id_film,  // ID du film
-            genre.nom_genre,  // Nom du genre
-            titre,  // Titre du film
-            annee_sortie,  // Année de sortie du film
-            CONCAT(FLOOR(duree / 60), 'h ', duree % 60, 'min') AS duree,  // Durée formatée (heures et minutes)
-            note  // Note du film
+            genre.id_genre,  
+            film.id_film, 
+            genre.nom_genre,  
+            titre, 
+            annee_sortie, 
+            CONCAT(FLOOR(duree / 60), 'h ', duree % 60, 'min') AS duree,
+            note  
             FROM film 
-            INNER JOIN posseder ON posseder.id_film = film.id_film  // Jointure pour associer film et genre
-            INNER JOIN genre ON genre.id_genre = posseder.id_genre  // Jointure avec le genre
+            INNER JOIN posseder ON posseder.id_film = film.id_film  
+            INNER JOIN genre ON genre.id_genre = posseder.id_genre  
             WHERE genre.id_genre = :id");
         
         // Exécution de la requête avec l'ID du genre

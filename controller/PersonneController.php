@@ -62,36 +62,6 @@ class PersonneController {
         require "view/detailActeur.php";
     }
 
-    // Méthode pour ajouter une nouvelle personne
-    public function ajoutPersonne() {
-        // Vérification si le formulaire a été soumis
-        if (isset($_POST['submit'])) {
-            // Récupération et nettoyage des données du formulaire
-            $nomPersonne = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $prenomPersonne = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $sexe = filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $dateNaissance = filter_input(INPUT_POST, 'date_naissance', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-            // Connexion à la base de données
-            $pdo = Connect::seConnecter();
-
-            // Préparation et exécution de la requête pour ajouter la nouvelle personne
-            $requete_ajoutPersonne = $pdo->prepare("INSERT INTO personne (nom, prenom, sexe, date_naissance)
-            VALUES (:nom, :prenom, :sexe, :date_naissance)");
-            $requete_ajoutPersonne->execute([
-                'nom' => $nomPersonne,
-                'prenom' => $prenomPersonne,
-                'sexe' => $sexe,
-                'date_naissance' => $dateNaissance
-            ]);
-
-            // Message de succès pour l'ajout
-            echo "La personne a été ajoutée avec succès.";
-        }
-
-        // Chargement de la vue pour ajouter une nouvelle personne
-        require "view/ajouts/ajoutPersonne.php";
-    }
 
     // Méthode pour lister tous les réalisateurs
     public function listRealisateurs() {
@@ -139,5 +109,54 @@ class PersonneController {
 
         // Chargement de la vue pour afficher le détail du réalisateur
         require "view/detailRealisateur.php";
+    }
+
+
+
+    // Méthode pour ajouter une nouvelle personne
+    public function ajoutPersonne() {
+        // Vérification si le formulaire a été soumis
+        if (isset($_POST['submit'])) {
+            // Récupération et nettoyage des données du formulaire
+            $nomPersonne = filter_input(INPUT_POST, "nom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $prenomPersonne = filter_input(INPUT_POST, "prenom", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $sexe = filter_input(INPUT_POST, "sexe", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $dateNaissance = filter_input(INPUT_POST, 'date_naissance', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $professions = $_POST['profession'] ?? []; // Récupérer les professions sélectionnées
+
+            // Connexion à la base de données
+        $pdo = Connect::seConnecter();
+
+        // Insérer les données de la personne
+        $requete_ajoutPersonne = $pdo->prepare("
+            INSERT INTO personne (nom, prenom, sexe, date_naissance)
+            VALUES (:nom, :prenom, :sexe, :date_naissance)
+        ");
+        $requete_ajoutPersonne->execute([
+            'nom' => $nomPersonne,
+            'prenom' => $prenomPersonne,
+            'sexe' => $sexe,
+            'date_naissance' => $dateNaissance
+        ]);
+
+        // Obtenir le dernier ID inséré
+        $idPersonne = $pdo->lastInsertId();
+
+        // Vérifiez les professions sélectionnées et ajoutez-les
+        foreach ($professions as $profession) {
+            if ($profession === 'acteur') {
+                $requete_ajoutActeur = $pdo->prepare("INSERT INTO acteur (id_personne) VALUES (:id_personne)");
+                $requete_ajoutActeur->execute(['id_personne' => $idPersonne]);
+            } elseif ($profession === 'realisateur') {
+                $requete_ajoutRealisateur = $pdo->prepare("INSERT INTO realisateur (id_personne) VALUES (:id_personne)");
+                $requete_ajoutRealisateur->execute(['id_personne' => $idPersonne]);
+            }
+        }
+            // Message de succès pour l'ajout
+            echo "La personne a été ajoutée avec succès.";
+        }
+
+        // Chargement de la vue pour ajouter une nouvelle personne
+        require "view/ajouts/ajoutPersonne.php";
     }
 }

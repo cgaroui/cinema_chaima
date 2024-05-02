@@ -60,3 +60,4 @@ class FilmController {
         require "view/detailFilm.php";
     }
 }
+
