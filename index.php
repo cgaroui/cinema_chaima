@@ -31,6 +31,8 @@ if(isset($_GET["action"])) {
         case "listRealisateurs" : $ctrlPersonne->listRealisateurs();break;
         case "ajoutGenre" : $ctrlGenre->ajoutGenre($id);break;
         case "ajoutPersonne" :$ctrlPersonne->ajoutPersonne();break;
+        case "ajoutRole": $ctrlRole->ajoutRole();break;
+        case "ajoutFilm":$ctrlFilm->ajoutFilm();break;
     }
 } else {
     $ctrlFilm->listFilms();

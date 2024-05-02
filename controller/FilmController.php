@@ -59,5 +59,44 @@ class FilmController {
         // Chargement de la vue pour afficher les détails du film
         require "view/detailFilm.php";
     }
+
+
+    public function ajoutFilm() {
+        // Vérifier si le formulaire a été soumis
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+            // Récupérer et nettoyer les données du formulaire
+            $titre = filter_input(INPUT_POST, 'titre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $annee_sortie = filter_input(INPUT_POST, 'annee_sortie', FILTER_VALIDATE_INT);
+            $duree = filter_input(INPUT_POST, 'duree', FILTER_VALIDATE_INT);
+            $note = filter_input(INPUT_POST, 'note', FILTER_VALIDATE_FLOAT);
+            $id_realisateur = filter_input(INPUT_POST, 'id_realisateur', FILTER_VALIDATE_INT);
+    
+            // pour s'assurer que les champs requis ne sont pas vides
+            if ($titre && $annee_sortie && $duree && $note !== false && $id_realisateur) {
+                $pdo = Connect::seConnecter();
+    
+                // Préparer la requête SQL pour insérer un nouveau film
+                $requete_ajoutFilm = $pdo->prepare("INSERT INTO film (titre, annee_sortie, duree, note, id_realisateur) 
+                                                   VALUES (:titre, :annee_sortie, :duree, :note, :id_realisateur)");
+    
+                // Exécuter la requête avec les valeurs extraites du formulaire
+                $requete_ajoutFilm->execute([
+                    'titre' => $titre,
+                    'annee_sortie' => $annee_sortie,
+                    'duree' => $duree,
+                    'note' => $note,
+                    'id_realisateur' => $id_realisateur,
+                ]);
+    
+                echo "Le film '$titre' a été ajouté avec succès.";
+            } else {
+                echo "Veuillez remplir tous les champs requis.";
+            }
+        }
+    
+        // Afficher le formulaire d'ajout
+        require "view/ajouts/ajoutFilm.php";
+    }
+    
 }
 

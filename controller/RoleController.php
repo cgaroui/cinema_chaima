@@ -33,7 +33,7 @@ class RoleController {
 
     }
 
-    public function ajouterRole(){
+    public function ajoutRole(){
 
         if (isset($_POST['submit'])) {
             // Récupération et nettoyage du nom du role à partir du formulaire
