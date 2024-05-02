@@ -45,15 +45,21 @@ class PersonneController {
         $requete_detailActeur->execute(["id" => $id]);
 
         // Requête pour récupérer les films associés à cet acteur
-        $requete_acteurFilms = $pdo->prepare("SELECT DISTINCT
-            film.id_film,
-            film.titre,
-            film.annee_sortie,
-            role.nom_personnage AS Role
-            FROM film
-            INNER JOIN casting ON film.id_film = film.id_film
-            INNER JOIN role ON casting.id_role = role.id_role
-            WHERE casting.id_acteur = :id");
+        $requete_acteurFilms = $pdo->prepare("SELECT
+        film.id_film,
+        film.titre,
+        film.annee_sortie,
+        role.nom_personnage AS Role
+        FROM 
+            film
+        INNER JOIN 
+            casting ON film.id_film = casting.id_film
+        INNER JOIN 
+            acteur ON casting.id_acteur = acteur.id_acteur
+        INNER JOIN 
+            role ON casting.id_role = role.id_role
+        WHERE 
+            acteur.id_acteur = :id");
 
         // Exécution de la requête pour récupérer les films de l'acteur
         $requete_acteurFilms->execute(["id" => $id]);
