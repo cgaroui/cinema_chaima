@@ -84,4 +84,36 @@ class GenreController {
             require "view/ajouts/ajoutGenre.php";
         }
     }
+
+
+    public function supprimerGenre() {
+        // Vérifiez si le formulaire a été soumis et l'ID du genre est fourni
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idGenre = filter_input(INPUT_POST, 'id_genre', FILTER_VALIDATE_INT);
+
+            if ($idGenre) {
+                // Connexion à la base de données
+                $pdo = Connect::seConnecter();
+
+                // Supprimer les références dans les tables associées (si nécessaire)
+                $requete_supprimerRelations = $pdo->prepare("DELETE FROM posseder WHERE id_genre = :id_genre");
+                $requete_supprimerRelations->execute(['id_genre' => $idGenre]);
+
+                // Supprimer le genre
+                $requete_supprimerGenre = $pdo->prepare("DELETE FROM genre WHERE id_genre = :id_genre");
+                $requete_supprimerGenre->execute(['id_genre' => $idGenre]);
+
+                // Redirection avec message de confirmation
+                header("Location: index.php?action=listGenres&message=Genre supprimé avec succès");
+                exit();
+            } else {
+                // Redirection avec message d'erreur
+                header("Location: index.php?action=listGenres&message=Erreur lors de la suppression");
+                exit();
+            }
+        }
+    }
 }
+
+    
+

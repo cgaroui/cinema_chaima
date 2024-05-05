@@ -15,7 +15,7 @@
             <li><a href="index.php?action=listGenres">Genres</a></li>
             <li><a href="index.php?action=listActeurs">Acteurs</a></li>
             <li><a href="index.php?action=listRealisateurs">Realisateur</a></li>
-            <li><a href="ajouts">Ajout</a></li>
+            <li><a href="view/ajouts">Ajout</a></li>
         </ul>
     </nav>
         <div id="wrapper" class="uk-container uk-container-expand">
