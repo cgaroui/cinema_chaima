@@ -7,7 +7,6 @@ $genres = $requete_genres->fetchAll();
     <thead>
         <tr>
             <th>Nom du Genre </th>
-            <th>nombre de films </th>
             <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
         </tr>
     </thead>
@@ -18,7 +17,6 @@ $genres = $requete_genres->fetchAll();
 
             <tr>
                 <td><a href="index.php?action=detailGenre&id=<?= $genre["id_genre"] ?>"><?= $genre["nom_genre"] ?></a></td>
-                <td><?=$genre["nombre de films"]?></td>
                 <td>
                     <!-- Formulaire pour supprimer le genre -->
                     <form method="POST" action="index.php?action=supprimerGenre" style="display: inline;">
@@ -28,6 +26,11 @@ $genres = $requete_genres->fetchAll();
                         <input type="submit" value="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce genre ?');" />
                     </form>
                 </td>
+                <td>
+                <!-- Lien pour rediriger vers la page d'édition -->
+                <a href="index.php?action=editGenre&id=<?= $genre['id_genre'] ?>">Editer</a>
+                
+                </td>            
             </tr>
         <?php }?>
     

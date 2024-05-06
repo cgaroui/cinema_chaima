@@ -41,3 +41,6 @@ $titre = "Liste des Realisateurs ";
 $titre_secondaire = "Liste des Realisateurs";
 $contenu = ob_get_clean();
 require "view/template.php";
+
+
+
