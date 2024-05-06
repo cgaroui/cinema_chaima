@@ -70,30 +70,29 @@ class PersonneController {
 
     public function supprimerActeur(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $idActeur = filter_input(INPUT_POST, 'id_acteur', FILTER_VALIDATE_INT);
-            // var_dump($idActeur);die;
-            if($idActeur){
+            $idRealisateur = filter_input(INPUT_POST, 'id_acteur', FILTER_VALIDATE_INT);
+            // var_dump($idRealisateur);die;
+            if($idRealisateur){
                 $pdo = Connect::seConnecter();
 
                  // Supprimer les enregistrements du casting liés à l'acteur
                  $requete_supprimerCasting = $pdo->prepare("DELETE FROM casting WHERE id_acteur = :id_acteur");
-                 $requete_supprimerCasting->execute(['id_acteur' => $idActeur]);
-         
-                //  // Supprimer les relations acteur lié à personne
-                //  $requete_supprimerPersonne = $pdo->prepare("DELETE FROM personne WHERE id_acteur = :id_acteur");
-                //  $requete_supprimerPersonne->execute(['id_acteur' => $idActeur]);
+                 $requete_supprimerCasting->execute(['id_acteur' => $idRealisateur]);
          
                  // Supprimer l'acteur de la table acteur
                  $requete_supprimerActeur = $pdo->prepare("DELETE FROM acteur WHERE id_acteur = :id_acteur");
-                 $requete_supprimerActeur->execute(['id_acteur' => $idActeur]);
+                 $requete_supprimerActeur->execute(['id_acteur' => $idRealisateur]);
          
                  // Redirection avec message de confirmation
-                 header("Location: index.php?action=listFilms&message=acteur supprimé avec succès");
+                
+                
+                  header("Location: index.php?action=listActeurs");
                  exit(); // Arrêter le script après la redirection
              } else {
                  // Redirection avec message d'erreur
-                 header("Location: index.php?action=listFilms&message=Erreur lors de la suppression");
-                 exit(); // Arrêter le script après la redirection
+                
+                echo " Erreur lors de la suppression...";
+                exit(); // Arrêter le script 
              }
          }
         require "view/listActeurs.php";
@@ -198,5 +197,37 @@ class PersonneController {
 
         // Chargement de la vue pour ajouter une nouvelle personne
         require "view/ajouts/ajoutPersonne.php";
+    }
+
+    public function supprimerRealisateur(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idRealisateur = filter_input(INPUT_POST, 'id_realisateur', FILTER_VALIDATE_INT);
+            // var_dump($idRealisateur);die;
+            if($idRealisateur){
+                $pdo = Connect::seConnecter();
+
+                 // Supprimer les enregistrements du casting liés à l'acteur
+                 $requete_supprimerCasting = $pdo->prepare("DELETE FROM casting WHERE id_acteur = :id_acteur");
+                 $requete_supprimerCasting->execute(['id_realisateur' => $idRealisateur]);
+         
+         
+                 // Supprimer l'acteur de la table acteur
+                 $requete_supprimerActeur = $pdo->prepare("DELETE FROM acteur WHERE id_acteur = :id_acteur");
+                 $requete_supprimerActeur->execute(['id_realisateur' => $idRealisateur]);
+         
+                 // Redirection avec message de confirmation
+                
+                
+                  header("Location: index.php?action=listActeurs");
+                 exit(); // Arrêter le script après la redirection
+             } else {
+                 // Redirection avec message d'erreur
+                
+                echo " Erreur lors de la suppression...";
+                exit(); // Arrêter le script 
+             }
+         }
+        require "view/listActeurs.php";
+         
     }
 }
