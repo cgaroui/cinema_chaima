@@ -68,6 +68,40 @@ class PersonneController {
         require "view/detailActeur.php";
     }
 
+    public function supprimerActeur(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idActeur = filter_input(INPUT_POST, 'id_acteur', FILTER_VALIDATE_INT);
+            // var_dump($idActeur);die;
+            if($idActeur){
+                $pdo = Connect::seConnecter();
+
+                 // Supprimer les enregistrements du casting liés à l'acteur
+                 $requete_supprimerCasting = $pdo->prepare("DELETE FROM casting WHERE id_acteur = :id_acteur");
+                 $requete_supprimerCasting->execute(['id_acteur' => $idActeur]);
+         
+                //  // Supprimer les relations acteur lié à personne
+                //  $requete_supprimerPersonne = $pdo->prepare("DELETE FROM personne WHERE id_acteur = :id_acteur");
+                //  $requete_supprimerPersonne->execute(['id_acteur' => $idActeur]);
+         
+                 // Supprimer l'acteur de la table acteur
+                 $requete_supprimerActeur = $pdo->prepare("DELETE FROM acteur WHERE id_acteur = :id_acteur");
+                 $requete_supprimerActeur->execute(['id_acteur' => $idActeur]);
+         
+                 // Redirection avec message de confirmation
+                 header("Location: index.php?action=listFilms&message=acteur supprimé avec succès");
+                 exit(); // Arrêter le script après la redirection
+             } else {
+                 // Redirection avec message d'erreur
+                 header("Location: index.php?action=listFilms&message=Erreur lors de la suppression");
+                 exit(); // Arrêter le script après la redirection
+             }
+         }
+        require "view/listActeurs.php";
+         
+    }
+
+    
+
 
     // Méthode pour lister tous les réalisateurs
     public function listRealisateurs() {

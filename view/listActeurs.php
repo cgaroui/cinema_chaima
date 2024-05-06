@@ -22,6 +22,15 @@ $acteurs = $requete_acteurs->fetchAll();
                     <td><a href="index.php?action=detailActeur&id=<?= $acteur["id_acteur"]?>"><?=$acteur["prenom"]?></td>
                     <td><?=$acteur["sexe"]?></td>
                     <td><?=$acteur["date_naissance"]?></td>
+                    <td>
+                    <!-- Formulaire pour supprimer l'acteur' -->
+                    <form method="POST" action="index.php?action=supprimerActeur" style="display: inline;">
+                        <!-- Champ caché pour l'identifiant de l'acteur -->
+                        <input type="hidden" name="id_acteur" value="<?= htmlspecialchars($acteur["id_acteur"]) ?>" />
+                        <!-- Bouton de suppression -->
+                        <input type="submit" value="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cet acteur ?');" />
+                    </form>
+                </td>
                     
                 </tr>
                 <?php }?>
