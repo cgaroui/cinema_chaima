@@ -98,7 +98,41 @@ class FilmController {
         require "view/ajouts/ajoutFilm.php";
     }
 
-    
+    public function supprimerFilm() {
+        // Vérifiez si le formulaire a été soumis et l'ID du film est fourni
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Récupérer l'ID du film à supprimer
+            $idFilm = filter_input(INPUT_POST, 'id_film', FILTER_VALIDATE_INT);
+            
+        
+            if ($idFilm) {
+                $pdo = Connect::seConnecter();
+        
+                // Supprimer les enregistrements du casting liés au film
+                $requete_supprimerCasting = $pdo->prepare("DELETE FROM casting WHERE id_film = :id_film");
+                $requete_supprimerCasting->execute(['id_film' => $idFilm]);
+        
+                // Supprimer les relations du film  avec le genre via posséder
+                $requete_supprimerGenre = $pdo->prepare("DELETE FROM posseder WHERE id_film = :id_film");
+                $requete_supprimerGenre->execute(['id_film' => $idFilm]);
+        
+                // Supprimer le film de la table des films
+                $requete_supprimerFilm = $pdo->prepare("DELETE FROM film WHERE id_film = :id_film");
+                $requete_supprimerFilm->execute(['id_film' => $idFilm]);
+        
+                // Redirection avec message de confirmation
+                header("Location: index.php?action=listFilms&message=Film supprimé avec succès");
+                exit(); // Arrêter le script après la redirection
+            } else {
+                // Redirection avec message d'erreur
+                header("Location: index.php?action=listFilms&message=Erreur lors de la suppression");
+                exit(); // Arrêter le script après la redirection
+            }
+        }
+        
+       
+        require "view/listFilms.php";
+    }
 }
 
 

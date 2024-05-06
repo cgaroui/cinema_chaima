@@ -5,7 +5,8 @@ ob_start();
 $genre_films =$requete_detGenre->fetchAll();
 
 // Obtenir le nom du genre
-$nom_genre = $requete_nom->fetch();
+// Obtenir le nom du genre
+$nom_genre = isset($requete_nom) ? $requete_nom->fetch() : null;
 // var_dump($nom_genre); die;
  
 ?>
@@ -21,7 +22,8 @@ $nom_genre = $requete_nom->fetch();
     </thead>
     <tbody>
         <?php
-
+       // Vérifiez si le genre a des films associés
+       if (!empty($genre_films)) {
         foreach($genre_films as $genre_film){ ?>
         
             <tr>
@@ -30,7 +32,10 @@ $nom_genre = $requete_nom->fetch();
                 <td><?=$genre_film["duree"]?></td>
                 <td><?=$genre_film["note"]?></td>
             </tr>
-        <?php }?>
+        <?php }
+    } else { // Si aucun film n'est associé à ce genre
+        echo "<tr><td colspan='4'>Aucun film associé à ce genre.</td></tr>";
+    } ?>
     </tbody>
 </table>
 

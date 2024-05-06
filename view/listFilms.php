@@ -11,6 +11,7 @@ ob_start();
         <tr>
             <th>Titre </th>
             <th>ANNEE SORTIE</th>
+            <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,15 @@ ob_start();
                 <tr>
                     <td><a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>"><?=$film["titre"]?></a></td>
                     <td><?=$film["annee_sortie"]?></td>
+                    <td>
+                    <!-- Formulaire pour supprimer le film -->
+                    <form method="POST" action="index.php?action=supprimerFilm" style="display: inline;">
+                        <!-- Champ caché pour l'identifiant du film -->
+                        <input type="hidden" name="id_film" value="<?= htmlspecialchars($film["id_film"]) ?>" />
+                        <!-- Bouton de suppression -->
+                        <input type="submit" value="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer ce film ?');" />
+                    </form>
+                </td>
                 </tr>
                 <?php }?>
     </tbody>

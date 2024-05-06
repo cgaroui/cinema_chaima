@@ -90,7 +90,7 @@ class GenreController {
         // Vérifiez si le formulaire a été soumis et l'ID du genre est fourni
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idGenre = filter_input(INPUT_POST, 'id_genre', FILTER_VALIDATE_INT);
-
+            
             if ($idGenre) {
                 // Connexion à la base de données
                 $pdo = Connect::seConnecter();
