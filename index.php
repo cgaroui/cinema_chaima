@@ -36,6 +36,8 @@ if(isset($_GET["action"])) {
         case "supprimerGenre" :$ctrlGenre->supprimerGenre();break;
         case "supprimerFilm" : $ctrlFilm->supprimerFilm();break;
         case "supprimerActeur" : $ctrlPersonne->supprimerActeur();break;
+        case "supprimerRealisateur" : $ctrlPersonne->supprimerRealisateur();break;
+
     }
 
 } else {

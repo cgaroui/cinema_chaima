@@ -206,19 +206,17 @@ class PersonneController {
             if($idRealisateur){
                 $pdo = Connect::seConnecter();
 
-                 // Supprimer les enregistrements du casting liés à l'acteur
-                 $requete_supprimerCasting = $pdo->prepare("DELETE FROM casting WHERE id_acteur = :id_acteur");
-                 $requete_supprimerCasting->execute(['id_realisateur' => $idRealisateur]);
+                 // Supprimer les film liés à ce realisateur
+                 $requete_supprimerSesfilms = $pdo->prepare("DELETE FROM film WHERE id_realisateur = :id_realisateur");
+                 $requete_supprimerSesfilms->execute(['id_realisateur' => $idRealisateur]);
          
          
-                 // Supprimer l'acteur de la table acteur
-                 $requete_supprimerActeur = $pdo->prepare("DELETE FROM acteur WHERE id_acteur = :id_acteur");
-                 $requete_supprimerActeur->execute(['id_realisateur' => $idRealisateur]);
+                 // Supprimer realisateur de la table realisateur
+                 $requete_supprimerRealisateur = $pdo->prepare("DELETE FROM realisateur WHERE id_realisateur = :id_realisateur");
+                 $requete_supprimerRealisateur->execute(['id_realisateur' => $idRealisateur]);
          
-                 // Redirection avec message de confirmation
-                
-                
-                  header("Location: index.php?action=listActeurs");
+                 // Redirection
+                  header("Location: index.php?action=listRealisateurs");
                  exit(); // Arrêter le script après la redirection
              } else {
                  // Redirection avec message d'erreur
@@ -227,7 +225,7 @@ class PersonneController {
                 exit(); // Arrêter le script 
              }
          }
-        require "view/listActeurs.php";
+        require "view/listRealisateurs.php";
          
     }
 }

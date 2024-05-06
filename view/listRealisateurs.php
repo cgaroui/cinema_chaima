@@ -15,12 +15,21 @@ $realisateurs =$requete_listRealisateurs->fetchAll() ;
     </thead>
     <tbody>
         <?php
-            foreach($realisateurs as $acteur){ ?>
+            foreach($realisateurs as $realisateur){ ?>
                 <tr>
-                    <td><a href="index.php?action=detailRealisateur&id=<?= $acteur["id_realisateur"]?>"><?=$acteur["nom"]?></a></td>
-                    <td><a href="index.php?action=detailRealisateur&id=<?= $acteur["id_realisateur"]?>"><?=$acteur["prenom"]?></td>
-                    <td><?=$acteur["sexe"]?></td>
-                    <td><?=$acteur["date_naissance"]?></td>
+                    <td><a href="index.php?action=detailRealisateur&id=<?= $realisateur["id_realisateur"]?>"><?=$realisateur["nom"]?></a></td>
+                    <td><a href="index.php?action=detailRealisateur&id=<?= $realisateur["id_realisateur"]?>"><?=$realisateur["prenom"]?></td>
+                    <td><?=$realisateur["sexe"]?></td>
+                    <td><?=$realisateur["date_naissance"]?></td>
+                    <td>
+                    <!-- Formulaire pour supprimer realisateur -->
+                    <form method="POST" action="index.php?action=supprimerRealisateur" style="display: inline;">
+                        <!-- Champ caché pour l'identifiant du realisateur -->
+                        <input type="hidden" name="id_realisateur" value="<?= htmlspecialchars($realisateur["id_realisateur"]) ?>" />
+                        <!-- Bouton de suppression -->
+                        <input type="submit" value="Supprimer" onclick="return confirm('la suppression de ce realisateur induit la supression de ses films Voulez-vous vraiment supprimer ce realisateur ?');" />
+                    </form>
+                    </td>
                     
                 </tr>
                 <?php }?>
