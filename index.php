@@ -5,6 +5,7 @@ use Controller\GenreController;
 use Controller\RoleController;
 use Controller\RealisateurController;
 use Controller\PersonneController;
+use Controller\AccueilController;
 
 spl_autoload_register(function ($class_name){
     include $class_name . '.php';
@@ -14,6 +15,7 @@ $ctrlFilm = new FilmController();
 $ctrlPersonne = new PersonneController();
 $ctrlGenre = new GenreController();
 $ctrlRole = new RoleController();
+$ctrlAccueil = new AccueilController();
 
 
 $id = (isset($_GET["id"])) ?$_GET["id"] : null;
@@ -38,6 +40,7 @@ if(isset($_GET["action"])) {
         case "supprimerActeur" : $ctrlPersonne->supprimerActeur();break;
         case "supprimerRealisateur" : $ctrlPersonne->supprimerRealisateur();break;
         case "editGenre" : $ctrlGenre->editGenre($id);break;
+        case "listNouveaute" : $ctrlAccueil->listNouveaute();break;
 
     }
 
