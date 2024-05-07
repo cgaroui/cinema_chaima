@@ -1,7 +1,14 @@
 *{
-    background-color:#FCA311 ;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+
+
+#wrapper{
+    background-color:#FCA311 ;
+}
 
 ul{
     display: flex;
@@ -10,4 +17,22 @@ ul{
     flex-wrap: wrap;
     flex-direction: row;
 }
+
+
+#carouselExampleDark {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+    margin: 10px 50px;
+
+}
+
+#carouselExampleIndicators .carousel-inner img{
+    width:100rem ;
+    height: 500px;
+    border-radius: 10px;
+}
+
+
 
