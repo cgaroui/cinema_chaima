@@ -116,37 +116,69 @@ class GenreController {
 
 
 
-    public function editGenre($id_genre) {
-        // Connexion à la base de données
-        $pdo = Connect::seConnecter();
-
-        // Récupérer les données du formulaire
-        $nom_genre = filter_input(INPUT_POST, 'nom_genre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        var_dump($nom_genre);die;
-        // Vérifier que la méthode de requête est POST et que le nom du genre n'est pas vide
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    // public function editGenre($id_genre) {
+    //     // Connexion à la base de données
+    //     $pdo = Connect::seConnecter();
+        
+    //     // Récupérer les données du formulaire
+    //     $nom_genre = filter_input(INPUT_post, 'nom_genre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    //     var_dump($nom_genre);die;
+    //     // Vérifier que la méthode de requête est POST et que le nom du genre n'est pas vide
+    //     if($_SERVER['REQUEST_METHOD'] === 'POST'){
             
-            // Requête préparée pour mettre à jour le nom du genre
-            $requete_updateGenre = $pdo->prepare("UPDATE genre SET nom_genre = :nom_genre WHERE id_genre = :id_genre");
+    //         // Requête préparée pour mettre à jour le nom du genre
+    //         $requete_updateGenre = $pdo->prepare("UPDATE genre SET nom_genre = :nom_genre WHERE id_genre = :id_genre");
 
-            // Exécution de la requête avec les valeurs nécessaires
-            $requete_updateGenre->execute([
-                'nom_genre' => $nom_genre,
-                'id_genre' => $id_genre, // L'ID est utilisé dans la clause WHERE
-            ]);
+    //         // Exécution de la requête avec les valeurs nécessaires
+    //         $requete_updateGenre->execute([
+    //             'nom_genre' => $nom_genre,
+    //             'id_genre' => $id_genre, // L'ID est utilisé dans la clause WHERE
+    //         ]);
 
-           // Vérifier si des lignes ont été affectées
-            if ($requete_updateGenre->rowCount() > 0) {
-                echo "Le genre a été mis à jour avec succès.";
-            } else {
-                echo "Aucune mise à jour effectuée. Assurez-vous que le nom du genre a changé.";
-            }
-        } else {
-            echo "Données invalides. Assurez-vous que tous les champs sont remplis correctement.";
-        }
+    //        // Vérifier si des lignes ont été affectées
+    //         if ($requete_updateGenre->rowCount() > 0) {
+    //             echo "Le genre a été mis à jour avec succès.";
+    //         } else {
+    //             echo "Aucune mise à jour effectuée. Assurez-vous que le nom du genre a changé.";
+    //         }
+    //     } else {
+    //         echo "Données invalides. Assurez-vous que tous les champs sont remplis correctement.";
+    //     }
    
-    // Charger la vue après l'opération
-    require "view/editGenre.php";
+    // // Charger la vue après l'opération
+    // require "view/editGenre.php";
+    // }
+
+
+    public function editGenre() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id_genre = filter_input(INPUT_POST, 'id_genre', FILTER_VALIDATE_INT);
+            $nom_genre = filter_input(INPUT_POST, 'nom_genre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
+            if ($id_genre && $nom_genre) {
+                $pdo = Connect::seConnecter();
+                
+                // Requête préparée pour mettre à jour le nom du genre
+                $requete_updateGenre = $pdo->prepare("UPDATE genre SET nom_genre = :nom_genre WHERE id_genre = :id_genre");
+                // Exécution de la requête avec les valeurs nécessaires
+                $requete_updateGenre->execute([
+                    'nom_genre' => $nom_genre,
+                    'id_genre' => $id_genre,
+                ]);
+
+                // Vérifier si des lignes ont été affectées
+                if ($requete_updateGenre->rowCount() > 0) {
+                    echo "Le genre a été mis à jour avec succès.";
+                } else {
+                    echo "Aucune mise à jour effectuée. Assurez-vous que le nom du genre a changé.";
+                }
+            } else {
+                echo "Les données ne sont pas valides. Veuillez vérifier que l'ID du genre et le nom sont corrects.";
+            }
+        }
+        require "view/editGenre.php";
     }
+    
+
 }
 
