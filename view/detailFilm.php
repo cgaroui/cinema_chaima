@@ -2,9 +2,11 @@
 ob_start();
 $castings= $requete_castingFilm->fetchAll();
 $detail_film = $requete_detFilm->fetch();
+
+
 ?>
-
-
+<img src="img/<?= htmlspecialchars($detail_film["titre"]) ?>" alt="Affiche du film " />
+ 
 
 <p>
     <?php echo "Titre du film : ".$detail_film["titre"]."<br>".

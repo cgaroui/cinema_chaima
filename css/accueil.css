@@ -34,5 +34,30 @@ ul{
     border-radius: 10px;
 }
 
+table tr img {
+    width: 300px; 
+    height: 160px; 
+    border-radius: 10px;
+
+}
+
+table tr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+tbody {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    justify-content: space-between;
+}
+
+table p{
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size:bold;
+}
 
 

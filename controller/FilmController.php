@@ -24,7 +24,7 @@ class FilmController {
         $pdo = Connect::seConnecter();
         
         // Requête pour obtenir les détails d'un film spécifique, y compris le titre, l'année de sortie, la durée, la note, le réalisateur et le casting
-        $requete_detFilm = $pdo->prepare("SELECT 
+        $requete_detFilm = $pdo->prepare("SELECT affiche,
             titre,  
             annee_sortie,  
             CONCAT(FLOOR(duree / 60), 'h ', duree % 60, 'min') AS duree, 

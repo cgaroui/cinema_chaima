@@ -9,7 +9,11 @@ class AccueilController{
     public function listNouveaute(){
         $pdo = Connect::seConnecter();
 
-        $requete_nouveaute = $pdo->query("SELECT id_film,annee_sortie,titre,affiche,duree
+        $requete_nouveaute = $pdo->query("SELECT affiche,
+            id_film,
+            annee_sortie,
+            titre,
+            duree
             FROM film 
             ORDER BY annee_sortie DESC
             LIMIT 3");

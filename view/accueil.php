@@ -2,6 +2,7 @@
 ob_start();
 
 $nvFilms = $requete_nouveaute->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +35,7 @@ $nvFilms = $requete_nouveaute->fetchAll();
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="img/AVATAR.jpg" alt="Second slide">
+                <img class="d-block w-100" src="img/AVATAR 2.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100" src="img/spiderman.jpg" alt="Third slide">
@@ -51,26 +52,31 @@ $nvFilms = $requete_nouveaute->fetchAll();
     </div>
 
 
-    <p>Nouveauté</p>
+    
 
     <table>
-        <thead>
-            <tr>
-                <th>Titre </th>
-                <th>ANNEE SORTIE</th>
-                <th>affiche</th>
-            </tr>
-        </thead>
+        <p>Nouveauté</p>
+       
         <tbody>
+        
+        <div class="element" >
         <?php
         foreach($nvFilms as $nvFilm){ ?>
-        <tr>
-            <td><?=$nvFilm["titre"]?></td>
-            <td><?=$nvFilm["annee_sortie"]?></td>
-            <td><?=$nvFilm["affiche"]?></td>
-        </tr>
-
-    <?php }?>
+        
+            <tr> 
+                <td>
+                            <?php
+                            // Utiliser le titre du film comme nom de fichier pour l'image d'affiche
+                            $chemin_affiche = "img/" . $nvFilm["titre"] . ".jpg";
+                            ?>
+                            <img src="<?= htmlspecialchars($chemin_affiche) ?>" alt="Affiche du film <?= htmlspecialchars($nvFilm["titre"]) ?>" />
+                </td>
+                <td><?=$nvFilm["titre"]?></td>
+                <td><?=$nvFilm["annee_sortie"]?></td>
+            
+            </tr>
+        </div>
+        <?php }?>
     </tbody>
     </table>
 

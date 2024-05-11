@@ -12,11 +12,14 @@ thead tr {
     align-content: center;
     justify-content: space-between;
     align-items: center;
+    gap: 200px; 
+   
 }
 tbody tr {
     display: flex;
     flex-direction: row;
     align-content: center;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
+    gap: 200px; 
 }

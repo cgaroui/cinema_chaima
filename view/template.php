@@ -13,7 +13,7 @@
         <nav>
             
             <ul>
-                <img src="img/logo.jpg" alt="logo">
+                <img class="logo" src="img/logo.png" alt="logo">
                 <li><a href="index.php?action=listNouveaute">Accueil</a></li>
                 <li><a href="index.php?action=listFilms ">Films</a></li>
                 <li><a href="index.php?action=listGenres">Genres</a></li>
