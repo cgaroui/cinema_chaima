@@ -3,12 +3,14 @@
 ob_start(); 
 
 ?>
+<link rel="stylesheet" href="css/listFilms.css">
 
 <p >il y a <?= $requete->rowCount() ?> films</p>       <!--  la fonction rowCount() calcule le nmbre de ligne (ici car on affiche 1 film par ligne ) -->
 
-<table>
+<table class="listFilms">
     <thead>
         <tr>
+            <th>Affiche</th>
             <th>Titre </th>
             <th>ANNEE SORTIE</th>
             <th>Actions</th> <!-- Nouvelle colonne pour les actions -->
@@ -19,6 +21,13 @@ ob_start();
         //affichage plusieur lignes (avec fetchAll) en indiquant pour chaque ligne le titre et l'année de sortie du film concerné 
             foreach($requete->fetchAll() as $film){ ?>
                 <tr>
+                    <td>
+                        <?php
+                        // Utiliser le titre du film comme nom de fichier pour l'image d'affiche
+                        $chemin_affiche = "img/" . $film["titre"] . ".jpg";
+                        ?>
+                        <img src="<?= htmlspecialchars($chemin_affiche) ?>" alt="Affiche du film <?= htmlspecialchars($film["titre"]) ?>" />
+                    </td>
                     <td><a href="index.php?action=detailFilm&id=<?= $film["id_film"] ?>"><?=$film["titre"]?></a></td>
                     <td><?=$film["annee_sortie"]?></td>
                     <td>

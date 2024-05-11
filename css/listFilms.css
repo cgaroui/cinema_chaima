@@ -1,0 +1,22 @@
+
+table img {
+    width: 200px; 
+    height: auto; 
+
+}
+
+
+thead tr {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+tbody tr {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}

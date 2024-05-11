@@ -34,7 +34,7 @@ $nvFilms = $requete_nouveaute->fetchAll();
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="img/titanic.jpg" alt="Second slide">
+                <img class="d-block w-100" src="img/AVATAR.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100" src="img/spiderman.jpg" alt="Third slide">
